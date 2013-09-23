@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo</title>
+  
+  <script type='text/javascript' src='http://code.jquery.com/jquery-1.7.1.js'></script>
+  <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+$('#button').click(function(){
+    populateJobsList('Dundee');
+});
+
+
+function populateJobsList (jobLocation) {
+    if (jobLocation == ""){
+        jobLocation = 'UK';   
+    }
+
+    limit = "100";
+    countryCode ="uk";
+    
+    var provinceArray = jobLocation.split(',');
+    console.log(provinceArray , jobLocation);
+    var province = provinceArray[0];
+    var url_jobs = "http://api.indeed.com/ads/apisearch?publisher=5656845852938153&v=2&format=json&callback=?&q=&l="+province+"&sort=relevance&radius=25&st=jobsite&jt=fulltime&start=0&limit="+limit+"&fromage=10&filter=1&latlong=1&co="+countryCode;
+    
+    $.getJSON(url_jobs, function getJSONData(data) {
+    console.log(data)
+        $.each(data.results, function(i,item){
+            i++;
+            $("#titleJob"+i).html(item.jobtitle.substr(0,43));
+            
+            if (item.city){
+                $("#locationJob"+i).html(item.city);
+            }
+            else {
+                $("#locationJob"+i).html('N/A');
+            }
+            
+            $("#ajaxResponse").append("<div>");
+            $("#ajaxResponse").append("<b>Job Title :</b> " + item.jobtitle.substr(0,43) + "\n<br>");
+            $("#ajaxResponse").append("<b>Location :</b> " + item.formattedLocation + "\n");
+            $("#ajaxResponse").append("<div><br>");
+
+              
+
+        });
+    })
+}
+
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <button type='submit' id='button'>TEST</button>
+
+<div id="ajaxResponse">
+</div>
+  
+</body>
+
+
+</html>
+
