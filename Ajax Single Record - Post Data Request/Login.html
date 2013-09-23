@@ -15,14 +15,19 @@
 		//checks for the button click event
 		$("#myButton").click(function(e){
 				
+				//$.md5(password);
+
+				//document.setAttribute('password',$.md5(document.getElementById('password'));
+
 				//get the form data and then serialize that
 				dataString = $("#myAjaxRequestForm").serialize();
-				 
+
+			
 				//make the AJAX request, dataType is set to json
 				//meaning we are expecting JSON data in response from the server
 				$.ajax({
 					type: "POST",
-					url: "http://192.168.137.1:8080/RhieHorn/CountryInfo",
+					url: "http://192.168.137.1:8080/RhieHorn/Login",
 					data: dataString,
 					dataType: 'jsonp',
 					jsonp: 'callback',
@@ -35,29 +40,15 @@
 
 
 							 $("#ajaxResponse").html("");
-							 $("#ajaxResponse").append("<b>Country Code:</b> " + data.countryInfo.code + "\n");
-							 $("#ajaxResponse").append("<b>Country Name:</b> " + data.countryInfo.name + "\n");
-							 $("#ajaxResponse").append("<b>Continent:</b> " + data.countryInfo.continent + "\n");
-							 $("#ajaxResponse").append("<b>Region:</b> " + data.countryInfo.region + "\n");
-							 $("#ajaxResponse").append("<b>Life Expectancy:</b> " + data.countryInfo.lifeExpectancy + "\n");
-							 $("#ajaxResponse").append("<b>GNP:</b> " + data.countryInfo.gnp + "\n");
-							 
-								var arr = [ "one", "two", "three", "four", "five" ];
-								var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-								jQuery.each( arr, function() {
-								$( "#" + this ).text( "Mine is " + this + "." );
-								// Will stop running after "three"
-								return ( this !== "three" );
-								});
-								jQuery.each( obj, function( i, val ) {
-								$("#ajaxResponse").append( document.createTextNode( " - " + val ) );
-								});
+							 $("#ajaxResponse").append("<b>Email:</b> " + data.userInfo.email + "\n<br>");
+							 $("#ajaxResponse").append("<b>Password :</b> " + data.userInfo.password + "\n<br>");
 
+							 $("#ajaxResponse").append("<b> DataString :</b> " + dataString.toString() + "\n");
+			
 						 }
-						 
 						 //display error message
 						 else {
-							 $("#ajaxResponse").html("<div><b>Country code in Invalid!</b></div>");
+							 $("#ajaxResponse").html("<div><b>Login failed</b></div>");
 						 }
 					},
 					 
@@ -87,6 +78,7 @@
 			console.log("callback",data);
 			//do nothing   
 		}
+
 	 
 	});
 	</script>
@@ -96,12 +88,13 @@
  
     <form id="myAjaxRequestForm">
         <fieldset>
-            <legend>jQuery Ajax Form data Submit Request</legend>
+            <legend>Login Test</legend>
  
                 <p>
-                    <label for="countryCode">Country Code:</label>
- 
-                    <input id="countryCode" type="text" name="countryCode" />
+                    <label for="lbl_email">Email:</label>
+                    <input id="email" type="text" name="email" />
+ 					<label for="lbl_password">Password:</label>
+                    <input id="password" type="text" name="password" />
                 </p>
                 <p>
                     <input id="myButton" type="button" value="Submit" />

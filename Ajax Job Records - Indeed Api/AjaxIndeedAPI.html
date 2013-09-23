@@ -32,7 +32,7 @@ function populateJobsList (jobLocation) {
     var provinceArray = jobLocation.split(',');
     console.log(provinceArray , jobLocation);
     var province = provinceArray[0];
-    var url_jobs = "http://api.indeed.com/ads/apisearch?publisher=5656845852938153&v=2&format=json&callback=?&q=&l="+province+"&sort=relevance&radius=25&st=jobsite&jt=fulltime&start=0&limit="+limit+"&fromage=10&filter=1&latlong=1&co="+countryCode;
+    var url_jobs = "http://192.168.137.1:8080/RhieHorn/JobSearchController/indeed";
     
     $.getJSON(url_jobs, function getJSONData(data) {
     console.log(data)
@@ -49,7 +49,8 @@ function populateJobsList (jobLocation) {
             
             $("#ajaxResponse").append("<div>");
             $("#ajaxResponse").append("<b>Job Title :</b> " + item.jobtitle.substr(0,43) + "\n<br>");
-            $("#ajaxResponse").append("<b>Location :</b> " + item.formattedLocation + "\n");
+            $("#ajaxResponse").append("<b>Location :</b> " + item.formattedLocation + "\n<br>");
+            $("#ajaxResponse").append("<b>URL :</b><a href='" + item.url + "'>Link</a>\n");
             $("#ajaxResponse").append("<div><br>");
 
               
