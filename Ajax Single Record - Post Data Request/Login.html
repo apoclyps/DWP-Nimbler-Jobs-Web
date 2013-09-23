@@ -38,8 +38,9 @@
 						//our country code was correct so we have some information to display
 						 if(data.success){
 
-
 							 $("#ajaxResponse").html("");
+ 							 $("#ajaxResponse").append("<b>Login:</b> " + data.success + "\n<br><br>");
+
 							 $("#ajaxResponse").append("<b>Email:</b> " + data.userInfo.email + "\n<br>");
 							 $("#ajaxResponse").append("<b>Password :</b> " + data.userInfo.password + "\n<br>");
 
